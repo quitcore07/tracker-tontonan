@@ -26,7 +26,17 @@ Saya taruh `console.log(count)` di atas `return`. Hasilnya, setiap kali saya kli
 
 ## 2. TodoList.jsx
 
-(belum dikerjakan)
+### Percobaan 1: `todos.push(input)` dengan `setInput("")` masih ada
+
+Saya ganti `setTodos([...todos, input])` jadi `todos.push(input)`, sementara baris `setInput("")` masih saya biarkan. Hasilnya kelihatan sama saja, judul baru tetap muncul di daftar. Menurut saya ini terjadi karena `setInput("")` ikut membuat React menggambar ulang layar, jadi judul yang dimasukkan lewat `push` ikut tampil.
+
+### Percobaan 2: `todos.push(input)` tanpa `setInput("")`
+
+Saya hapus baris `setInput("")` sementara. Hasilnya: setelah klik Tambah, judul baru tidak muncul di daftar dan tulisan di kotak input tetap tersangkut di sana. Dari sini saya paham bahwa `push` mengubah data tanpa memberi tahu React, jadi tampilan tidak diperbarui. Supaya layar berubah, harus memakai `setTodos`.
+
+### Kesulitan
+
+Tulisan di kotak input berwarna hitam, sedangkan latar website saya biru gelap, jadi tulisan yang saya ketik hampir tidak terlihat. Penyebabnya kelas `text-black` di input. Solusinya: ganti jadi `text-white` dan beri latar `bg-gray-800` supaya serasi dengan desain website.
 
 ---
 
