@@ -1,0 +1,2 @@
+- Percobaan 1 (ketika dikurangi sampai di bawah 0): angkanya jadi minus (-1, -2, dst.) karena kodenya coma mengurangi 1 tanpa batas minimum. Saya biarkan dulu / saya tambahkan batas minimum agar angkanya tidak di bawah 0.
+- Percobaan 2 (count = count + 1 langsung): tombol Tambah tidak menaikkan angka di layar, sementara Kurangi dan Reset tetap jalan. Menurut saya karena kurang memakai " setCount(count + 1)} " hanya menggunakan " count = count + 1} " . Kalau count diubah langsung, React tidak tahu ada perubahan, jadi tampilannya tidak diperbarui.

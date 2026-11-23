@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Beranda from "./components/Beranda";
 import Body from "./components/Body";
+import Counter from "./components/Counter";
 
 export default function App() {
   const [halaman, setHalaman] = useState("beranda");
@@ -11,6 +12,7 @@ export default function App() {
     <div className="min-h-screen bg-slate-900 text-slate-100">
       <Header setHalaman={setHalaman} />
       {halaman === "beranda" ? <Beranda setHalaman={setHalaman} /> : <Body />}
+      <Counter />
       <Footer />
     </div>
   );
