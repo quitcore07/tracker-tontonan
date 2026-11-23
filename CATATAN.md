@@ -42,4 +42,18 @@ Tulisan di kotak input berwarna hitam, sedangkan latar website saya biru gelap, 
 
 ## 3. FetchData.jsx
 
-(belum dikerjakan)
+### Percobaan 1: dependency array kosong `[]`
+
+Saya taruh `console.log("useEffect jalan")` di dalam useEffect, lalu me-refresh halaman. Tulisan itu muncul 2 kali di Console (normal di mode development karena React StrictMode). Setelah saya klik tombol Tambah di Counter 3 kali sehingga layar digambar ulang, tulisan itu tidak bertambah. Artinya dengan `[]`, useEffect hanya berjalan sekali saat komponen pertama kali tampil.
+
+### Percobaan 2: tanpa dependency array
+
+Saya hapus `[]` sehingga useEffect hanya berakhir dengan `});`. Hasilnya, tulisan "useEffect jalan" di Console terus bertambah dengan sangat cepat dan tidak berhenti. Ini terjadi karena tanpa array, useEffect berjalan setiap kali komponen digambar ulang, sedangkan di dalamnya ada `setData` yang sendiri membuat komponen digambar ulang, sehingga terjadi perulangan terus-menerus.
+
+### Percobaan 3: `[angka]`
+
+Saya membuat state `angka` dan tombol "Ubah angka", lalu mengganti dependency array menjadi `[angka]`. Setelah refresh, tulisan "useEffect jalan" muncul 2 kali. Saat saya klik Tambah di Counter, tulisan tidak bertambah. Saat saya klik "Ubah angka" beberapa kali, tulisan di Console bertambah lagi (muncul angka 7 di samping tulisan, artinya muncul 7 kali tambahan). Artinya useEffect dengan `[angka]` berjalan saat komponen pertama kali tampil dan setiap kali `angka` berubah.
+
+### Kesulitan
+
+Awalnya saya tidak tahu cara membuka Console di browser, sehingga tulisan dari `console.log` tidak kelihatan dan saya bingung kenapa tidak ada perubahan di halaman. Solusinya: tekan F12 atau Ctrl + Shift + J, lalu pilih tab Console. Hasil `console.log` muncul di situ, bukan di halaman web.
