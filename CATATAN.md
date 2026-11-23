@@ -12,7 +12,7 @@ Tombol Tambah tidak menaikkan angka di layar, sementara Kurangi dan Reset tetap 
 
 ### Percobaan 3: `console.log(count)`
 
-Saya taruh `console.log(count)` di atas `return`. Hasilnya, setiap kali saya klik tombol, di console muncul angka count yang terbaru: [ISI: angka apa aja dan urutannya]. Waktu angka sudah 0 lalu saya klik Kurangi lagi: [ISI: ada baris baru atau tidak]. Dari sini saya paham bahwa setiap state berubah, React menjalankan ulang fungsi Counter dari atas.
+Saya taruh console.log(count) di atas return. Hasilnya, setiap kali saya klik tombol, di console muncul angka count yang terbaru: saya klik Tambah tiga kali dan yang muncul berurutan 1, 2, 3 (sebelumnya ada 0 dari tampilan pertama). Lalu saya klik Kurangi sampai balik ke 0, dan yang muncul 2, 1, 0. Waktu angka sudah 0 lalu saya klik Kurangi lagi, tidak ada baris baru di console, karena hasilnya tetap 0 sehingga tidak ada perubahan state dan layar tidak perlu digambar ulang. Dari sini saya paham bahwa setiap state berubah, React menjalankan ulang fungsi Counter dari atas.
 
 ### Kesulitan
 
