@@ -1,6 +1,6 @@
 # Catatan Explore useState & useEffect
 
-## 1. Counter.jsx
+## 1. Counter.jsxi
 
 ### Percobaan 1: Kurangi sampai di bawah 0
 
