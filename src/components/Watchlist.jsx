@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { daftarKategori, daftarStatus } from "../data/tontonan";
 
-export default function Daftar({ tontonan, setTontonan }) {
+export default function Watchlist({ tontonan, setTontonan }) {
   const [kategori, setKategori] = useState("Semua");
   const [idKonfirmasi, setIdKonfirmasi] = useState(null);
 

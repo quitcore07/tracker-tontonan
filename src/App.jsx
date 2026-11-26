@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Routes, Route, NavLink } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Beranda from "./components/Beranda";
-import Daftar from "./components/Daftar";
-import Tambah from "./components/Tambah";
-import ProgresEpisode from "./components/ProgresEpisode";
-import RiwayatTontonan from "./components/RiwayatTontonan";
-import Rekomendasi from "./components/Rekomendasi";
-import Statistik from "./components/Statistik";
-import Tentang from "./components/Tentang";
+import Daftar from "./components/Watchlist";
+import Tambah from "./components/TambahJudul";
+import ProgresEpisode from "./components/ProgresTontonan";
+import RiwayatTontonan from "./components/SudahDitonton";
+import Rekomendasi from "./components/CariTontonan";
+import Statistik from "./components/StatistikSaya";
+import Tentang from "./components/CaraPakai";
 import { dataAwal } from "./data/tontonan";
 
 const aktif = "px-3 py-1 rounded font-bold text-white bg-red-600";
@@ -19,8 +19,17 @@ function kelas({ isActive }) {
   return isActive ? aktif : biasa;
 }
 
+function ambilData() {
+  const simpanan = localStorage.getItem("tontonan");
+  return simpanan ? JSON.parse(simpanan) : dataAwal;
+}
+
 export default function App() {
-  const [tontonan, setTontonan] = useState(dataAwal);
+  const [tontonan, setTontonan] = useState(ambilData);
+
+  useEffect(() => {
+    localStorage.setItem("tontonan", JSON.stringify(tontonan));
+  }, [tontonan]);
 
   return (
     <div className="min-h-screen flex flex-col bg-neutral-950 text-white">

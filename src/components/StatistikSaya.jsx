@@ -1,6 +1,6 @@
 import { daftarKategori, daftarStatus } from "../data/tontonan";
 
-export default function Statistik({ tontonan }) {
+export default function StatistikSaya({ tontonan }) {
   return (
     <main className="max-w-3xl mx-auto px-6 py-10">
       <h2 className="text-3xl font-black mb-6">Statistik Saya</h2>
