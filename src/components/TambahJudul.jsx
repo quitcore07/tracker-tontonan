@@ -3,7 +3,7 @@ import { daftarKategori, daftarStatus, daftarFormat } from "../data/tontonan";
 
 const gaya = "bg-neutral-900 border border-neutral-800 rounded px-4 py-2";
 
-export default function TambahJudul({ tontonan, setTontonan }) {
+export default function Tambah({ tontonan, setTontonan }) {
   const [judul, setJudul] = useState("");
   const [kategori, setKategori] = useState(daftarKategori[0]);
   const [format, setFormat] = useState(daftarFormat[0]);
@@ -14,6 +14,10 @@ export default function TambahJudul({ tontonan, setTontonan }) {
   const [catatan, setCatatan] = useState("");
   const [berhasil, setBerhasil] = useState(false);
 
+  const belumNonton = format === "Serial" && Number(episode) < 1;
+  const statusDipakai =
+    belumNonton && status === "Selesai" ? daftarStatus[0] : status;
+
   function simpan() {
     if (judul === "") return;
 
@@ -22,7 +26,7 @@ export default function TambahJudul({ tontonan, setTontonan }) {
       judul: judul,
       kategori: kategori,
       format: format,
-      status: status,
+      status: statusDipakai,
       season: Math.max(Number(season), 1),
       episode: Math.max(Number(episode), 0),
       part: Math.max(Number(part), 1),
@@ -82,11 +86,19 @@ export default function TambahJudul({ tontonan, setTontonan }) {
           </label>
         )}
 
-        <select value={status} onChange={(e) => setStatus(e.target.value)} className={gaya}>
+        <select value={statusDipakai} onChange={(e) => setStatus(e.target.value)} className={gaya}>
           {daftarStatus.map((s) => (
-            <option key={s} value={s}>{s}</option>
+            <option key={s} value={s} disabled={belumNonton && s === "Selesai"}>
+              {s}
+            </option>
           ))}
         </select>
+
+        {belumNonton && (
+          <p className="border border-red-500 rounded px-3 py-2 text-sm text-red-400">
+            Pilihan <b>"Selesai"</b> masih terkunci. Isi kolom <b>Episode</b> minimal <b>1</b> untuk membukanya.
+          </p>
+        )}
 
         <input
           value={catatan}

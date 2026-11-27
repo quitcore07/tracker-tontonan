@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, NavLink } from "react-router";
+import { Routes, Route, NavLink, useLocation } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Beranda from "./components/Beranda";
-import Daftar from "./components/Watchlist";
-import Tambah from "./components/TambahJudul";
-import ProgresEpisode from "./components/ProgresTontonan";
-import RiwayatTontonan from "./components/SudahDitonton";
-import Rekomendasi from "./components/CariTontonan";
-import Statistik from "./components/StatistikSaya";
-import Tentang from "./components/CaraPakai";
+import Watchlist from "./components/Watchlist";
+import TambahJudul from "./components/TambahJudul";
+import ProgresTontonan from "./components/ProgresTontonan";
+import SudahDitonton from "./components/SudahDitonton";
+import CariTontonan from "./components/CariTontonan";
+import StatistikSaya from "./components/StatistikSaya";
+import CaraPakai from "./components/CaraPakai";
 import { dataAwal } from "./data/tontonan";
 
 const aktif = "px-3 py-1 rounded font-bold text-white bg-red-600";
@@ -24,16 +24,39 @@ function ambilData() {
   return simpanan ? JSON.parse(simpanan) : dataAwal;
 }
 
+function TeksBerjalan({ tontonan }) {
+  if (tontonan.length === 0) return null;
+
+  const durasi = Math.max(20, tontonan.length * 4) + "s";
+
+  return (
+    <div className="overflow-hidden bg-red-700 py-1 text-sm font-semibold">
+      <div className="jalur" style={{ animationDuration: durasi }}>
+        {[1, 2].map((salinan) => (
+          <div key={salinan} className="grup" aria-hidden={salinan === 2}>
+            {tontonan.map((t) => (
+              <span key={t.id} className="px-6 whitespace-nowrap">
+                ▶ {t.judul} • {t.status}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
   const [tontonan, setTontonan] = useState(ambilData);
+  const lokasi = useLocation();
 
   useEffect(() => {
     localStorage.setItem("tontonan", JSON.stringify(tontonan));
   }, [tontonan]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-neutral-950 text-white">
-      <div className="sticky top-0 z-10 bg-black border-b border-neutral-800">
+    <div className="latar min-h-screen flex flex-col text-white">
+      <div className="sticky top-0 z-10 bg-black border-b-2 border-red-700">
         <Header />
         <nav className="flex flex-wrap gap-1 px-4 py-3">
           <NavLink to="/" end className={kelas}>Beranda</NavLink>
@@ -45,18 +68,19 @@ export default function App() {
           <NavLink to="/statistik" className={kelas}>Statistik Saya</NavLink>
           <NavLink to="/tentang" className={kelas}>Cara Pakai</NavLink>
         </nav>
+        <TeksBerjalan tontonan={tontonan} />
       </div>
 
-      <div className="flex-1">
+      <div key={lokasi.pathname} className="halaman flex-1">
         <Routes>
           <Route path="/" element={<Beranda tontonan={tontonan} />} />
-          <Route path="/daftar" element={<Daftar tontonan={tontonan} setTontonan={setTontonan} />} />
-          <Route path="/tambah" element={<Tambah tontonan={tontonan} setTontonan={setTontonan} />} />
-          <Route path="/progres" element={<ProgresEpisode tontonan={tontonan} setTontonan={setTontonan} />} />
-          <Route path="/riwayat" element={<RiwayatTontonan tontonan={tontonan} setTontonan={setTontonan} />} />
-          <Route path="/rekomendasi" element={<Rekomendasi />} />
-          <Route path="/statistik" element={<Statistik tontonan={tontonan} />} />
-          <Route path="/tentang" element={<Tentang />} />
+          <Route path="/daftar" element={<Watchlist tontonan={tontonan} setTontonan={setTontonan} />} />
+          <Route path="/tambah" element={<TambahJudul tontonan={tontonan} setTontonan={setTontonan} />} />
+          <Route path="/progres" element={<ProgresTontonan tontonan={tontonan} setTontonan={setTontonan} />} />
+          <Route path="/riwayat" element={<SudahDitonton tontonan={tontonan} setTontonan={setTontonan} />} />
+          <Route path="/rekomendasi" element={<CariTontonan />} />
+          <Route path="/statistik" element={<StatistikSaya tontonan={tontonan} />} />
+          <Route path="/tentang" element={<CaraPakai />} />
         </Routes>
       </div>
 

@@ -3,7 +3,7 @@ import { daftarFormat } from "../data/tontonan";
 const merah = "bg-red-600 hover:bg-red-700 px-4 py-2 rounded font-semibold";
 const abu = "bg-neutral-700 hover:bg-neutral-600 px-4 py-2 rounded";
 
-export default function ProgresTontonan({ tontonan, setTontonan }) {
+export default function ProgresEpisode({ tontonan, setTontonan }) {
   function ubah(id, dataBaru) {
     setTontonan(
       tontonan.map((t) => (t.id === id ? { ...t, ...dataBaru } : t))
@@ -26,6 +26,7 @@ export default function ProgresTontonan({ tontonan, setTontonan }) {
         const season = t.season || 1;
         const episode = t.episode || 0;
         const part = t.part || 1;
+        const terkunci = format === "Serial" && episode < 1;
 
         return (
           <div key={t.id} className="bg-neutral-900 rounded-lg p-5 mb-4">
@@ -91,10 +92,20 @@ export default function ProgresTontonan({ tontonan, setTontonan }) {
                 </button>
                 <button
                   onClick={() => ubah(t.id, { status: "Selesai" })}
-                  className="border border-green-500 text-green-400 hover:bg-green-500 hover:text-black px-4 py-2 rounded"
+                  disabled={terkunci}
+                  className={
+                    terkunci
+                      ? "border border-red-500 text-red-400 px-4 py-2 rounded cursor-not-allowed"
+                      : "border border-green-500 text-green-400 hover:bg-green-500 hover:text-black px-4 py-2 rounded"
+                  }
                 >
                   Tandai Selesai
                 </button>
+                {terkunci && (
+                  <p className="w-full border border-red-500 rounded px-3 py-2 text-sm text-red-400">
+                    Tombol <b>"Tandai Selesai"</b> masih terkunci. Tonton minimal <b>1 episode</b> untuk membukanya.
+                  </p>
+                )}
               </div>
             )}
           </div>
