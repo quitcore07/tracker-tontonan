@@ -37,6 +37,11 @@ const KATEGORI = {
   Donghua: [tmdb("tv", `${ANIMASI}&with_original_language=zh`, 30)],
 };
 
+// Gaya tombol: aktif = merah solid, nonaktif = gelap dengan garis merah tipis
+const TOMBOL_AKTIF = "bg-red-600 text-white";
+const TOMBOL_NONAKTIF =
+  "bg-zinc-900 text-gray-300 border border-red-900 hover:bg-red-900/40 hover:text-white";
+
 // Jikan dan TMDB bentuk datanya beda, jadi disamakan: { judul, rating }
 const rapikan = (hasil) =>
   (hasil.data ?? hasil.results).map((item) => ({
@@ -97,10 +102,8 @@ export default function Rekomendasi() {
           <button
             key={nama}
             onClick={() => setKategori(nama)}
-            className={`px-4 py-2 rounded-lg font-semibold ${
-              kategori === nama
-                ? "bg-blue-500"
-                : "bg-gray-700 hover:bg-gray-600"
+            className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+              kategori === nama ? TOMBOL_AKTIF : TOMBOL_NONAKTIF
             }`}
           >
             {nama}
@@ -115,10 +118,8 @@ export default function Rekomendasi() {
             <button
               key={nama}
               onClick={() => setNegara(nama)}
-              className={`px-3 py-1 rounded-full text-sm ${
-                negara === nama
-                  ? "bg-blue-500"
-                  : "bg-gray-700 hover:bg-gray-600"
+              className={`px-3 py-1 rounded-full text-sm transition-colors ${
+                negara === nama ? TOMBOL_AKTIF : TOMBOL_NONAKTIF
               }`}
             >
               {nama}
